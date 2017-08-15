@@ -1,3 +1,5 @@
+require IEx;
+
 defmodule Alice.Handlers.Eats do
   @moduledoc """
   This is an Alice handler to help you decide what to eat.
@@ -124,7 +126,6 @@ defmodule Alice.Handlers.Eats do
   def choose(conn) do
     with groups <- Map.values(get_groups(conn)),
          {:ok, group} <- get_current_group(groups, conn),
-         %Group{restaurants: []} -> @norestaurant_error_message
          %Group{restaurants: restaurants} <- group do
       "You should get some eats at *#{Enum.random(restaurants)}*!"
     else
@@ -173,7 +174,8 @@ defmodule Alice.Handlers.Eats do
     "No groups. You can add a group with the join command."
   end
   defp format_group_list(group_names) do
-    "Here are the current groups:\n*#{Enum.join(group_names, "*\n*")}*"
+    IEx.pry
+    "Here are the current groups:\n*#{group_names |> Enum.with_index |> Enum.each(fn({group_name, id}) -> "#{index + 1}". "#{group_name}*\n*" end)}*"
   end
 
   defp user_id(%Conn{message: %{user: id}}), do: id
