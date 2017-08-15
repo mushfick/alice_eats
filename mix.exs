@@ -7,7 +7,9 @@ defmodule Alice.Eats.Mixfile do
       version: "0.1.0",
       elixir: "~> 1.4",
       start_permanent: Mix.env == :prod,
-      deps: deps()
+      deps: deps(),
+      package: package(),
+      description: "A handler for the Alice Slack bot. Suggest where to eat from self-curated lists of restaurants."
     ]
   end
 
@@ -18,6 +20,15 @@ defmodule Alice.Eats.Mixfile do
   defp deps do
     [
       {:alice, "~> 0.3.6"}
+    ]
+  end
+
+  defp package do
+    [
+      files: ["lib", "config", "mix.exs", "README*"],
+      maintainers: ["Adam Zaninovich", "Joe Perry"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/alice-bot/alice_eats"}
     ]
   end
 end
