@@ -5,6 +5,7 @@ defmodule Alice.Handlers.Eats do
   use Alice.Router
   alias Alice.{Conn,Eats.Group}
   @nogroup_error_message "You are not a member of any group. Use the join command to join a group."
+  @norestaurant_error_message "You do not have any restraunts added in this group. Use the add command to add a restaurant first."
 
   command ~r/eats members/i,                  :list_members
   command ~r/eats list groups/i,              :list_groups
@@ -123,6 +124,7 @@ defmodule Alice.Handlers.Eats do
   def choose(conn) do
     with groups <- Map.values(get_groups(conn)),
          {:ok, group} <- get_current_group(groups, conn),
+         %Group{restaurants: []} -> @norestaurant_error_message
          %Group{restaurants: restaurants} <- group do
       "You should get some eats at *#{Enum.random(restaurants)}*!"
     else
