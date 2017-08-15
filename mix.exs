@@ -19,7 +19,8 @@ defmodule Alice.Eats.Mixfile do
 
   defp deps do
     [
-      {:alice, "~> 0.3.6"}
+      {:alice, "~> 0.3.6"},
+      {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
 
